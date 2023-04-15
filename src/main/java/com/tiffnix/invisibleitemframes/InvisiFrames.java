@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public final class InvisibleItemFrames extends JavaPlugin {
-    public static InvisibleItemFrames INSTANCE;
+public final class InvisiFrames extends JavaPlugin {
+    public static InvisiFrames INSTANCE;
     public static NamespacedKey IS_INVISIBLE_KEY;
     public static NamespacedKey RECIPE_KEY;
     public static NamespacedKey GLOW_RECIPE_KEY;

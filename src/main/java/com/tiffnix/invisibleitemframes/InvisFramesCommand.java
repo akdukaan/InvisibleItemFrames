@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -25,8 +24,8 @@ public class InvisFramesCommand implements CommandExecutor {
     }
 
     private boolean onReload(CommandSender sender) {
-        InvisibleItemFrames.INSTANCE.reloadConfig();
-        InvisibleItemFrames.INSTANCE.loadConfig();
+        InvisiFrames.INSTANCE.reloadConfig();
+        InvisiFrames.INSTANCE.loadConfig();
         sender.sendMessage("Reloaded successfully.");
 
         return true;
@@ -57,13 +56,13 @@ public class InvisFramesCommand implements CommandExecutor {
             return true;
         }
 
-        if (receiver.hasDiscoveredRecipe(InvisibleItemFrames.RECIPE_KEY) && receiver.hasDiscoveredRecipe(InvisibleItemFrames.GLOW_RECIPE_KEY)) {
+        if (receiver.hasDiscoveredRecipe(InvisiFrames.RECIPE_KEY) && receiver.hasDiscoveredRecipe(InvisiFrames.GLOW_RECIPE_KEY)) {
             sender.sendMessage("Player " + receiver.getDisplayName() + " already has the recipes.");
             return true;
         }
 
-        receiver.discoverRecipe(InvisibleItemFrames.RECIPE_KEY);
-        receiver.discoverRecipe(InvisibleItemFrames.GLOW_RECIPE_KEY);
+        receiver.discoverRecipe(InvisiFrames.RECIPE_KEY);
+        receiver.discoverRecipe(InvisiFrames.GLOW_RECIPE_KEY);
         sender.sendMessage("Granted recipes to " + receiver.getDisplayName());
 
         return true;
@@ -77,7 +76,7 @@ public class InvisFramesCommand implements CommandExecutor {
             receiver = (LivingEntity) sender;
         }
 
-        ItemStack itemToGive = InvisibleItemFrames.INVISIBLE_FRAME;
+        ItemStack itemToGive = InvisiFrames.INVISIBLE_FRAME;
 
         switch (args.length) {
             default:
@@ -95,9 +94,9 @@ public class InvisFramesCommand implements CommandExecutor {
                 // Intentional fallthrough
             case 2:
                 if (args[1].equals("regular")) {
-                    itemToGive = InvisibleItemFrames.INVISIBLE_FRAME;
+                    itemToGive = InvisiFrames.INVISIBLE_FRAME;
                 } else if (args[1].equals("glow")) {
-                    itemToGive = InvisibleItemFrames.INVISIBLE_GLOW_FRAME;
+                    itemToGive = InvisiFrames.INVISIBLE_GLOW_FRAME;
                 } else {
                     sender.sendMessage("Item type must be either regular or glow.");
                     return true;
@@ -126,7 +125,7 @@ public class InvisFramesCommand implements CommandExecutor {
         final ItemStack stack = template.clone();
         stack.setAmount(amount);
 
-        final Item entity = receiver.getWorld().dropItem(receiver.getEyeLocation(), stack);
+        Item entity = receiver.getWorld().dropItem(receiver.getEyeLocation(), stack);
         entity.setPickupDelay(0);
         entity.setThrower(receiver.getUniqueId());
         entity.setVelocity(receiver.getEyeLocation().getDirection().multiply(1.0f / 20.0f));

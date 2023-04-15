@@ -1,6 +1,6 @@
-name: InvisibleItemFrames
+name: InvisiFrames
 version: ${project.version}
-main: com.tiffnix.invisibleitemframes.InvisibleItemFrames
+main: com.tiffnix.invisibleitemframes.InvisiFrames
 api-version: 1.13
 description: Adds craftable invisible item frames for survival.
 authors:

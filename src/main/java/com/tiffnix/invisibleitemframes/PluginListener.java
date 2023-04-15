@@ -49,7 +49,7 @@ public class PluginListener implements Listener {
         if (location.equals(aboutToPlaceLocation) && face == aboutToPlaceFace) {
             aboutToPlaceLocation = null;
             aboutToPlaceFace = null;
-            event.getEntity().getPersistentDataContainer().set(InvisibleItemFrames.IS_INVISIBLE_KEY,
+            event.getEntity().getPersistentDataContainer().set(InvisiFrames.IS_INVISIBLE_KEY,
                     PersistentDataType.BYTE, (byte) 1);
         }
     }
@@ -63,7 +63,7 @@ public class PluginListener implements Listener {
     public void onHangingBreak(HangingBreakByEntityEvent event) {
         final Hanging entity = event.getEntity();
 
-        final boolean isFrame = InvisibleItemFrames.isInvisibleItemFrame(entity);
+        final boolean isFrame = InvisiFrames.isInvisibleItemFrame(entity);
         Entity remover = event.getRemover();
         if (remover == null) {
             return;
@@ -105,9 +105,9 @@ public class PluginListener implements Listener {
             return;
         }
         if (stack.getType() == Material.ITEM_FRAME) {
-            stack.setItemMeta(InvisibleItemFrames.INVISIBLE_FRAME.getItemMeta());
+            stack.setItemMeta(InvisiFrames.INVISIBLE_FRAME.getItemMeta());
         } else if (stack.getType() == Material.GLOW_ITEM_FRAME) {
-            stack.setItemMeta(InvisibleItemFrames.INVISIBLE_GLOW_FRAME.getItemMeta());
+            stack.setItemMeta(InvisiFrames.INVISIBLE_GLOW_FRAME.getItemMeta());
         } else {
             return;
         }
@@ -123,7 +123,7 @@ public class PluginListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         final ItemStack item = event.getItem();
 
-        if (!InvisibleItemFrames.isInvisibleItemFrame(item) || event.useItemInHand() == Event.Result.DENY) {
+        if (!InvisiFrames.isInvisibleItemFrame(item) || event.useItemInHand() == Event.Result.DENY) {
             return;
         }
 
@@ -155,7 +155,7 @@ public class PluginListener implements Listener {
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         final Entity entity = event.getRightClicked();
-        if (!InvisibleItemFrames.isInvisibleItemFrame(entity)) {
+        if (!InvisiFrames.isInvisibleItemFrame(entity)) {
             return;
         }
 
@@ -167,7 +167,7 @@ public class PluginListener implements Listener {
             return;
         }
 
-        new ItemFrameUpdateRunnable(frame).runTask(InvisibleItemFrames.INSTANCE);
+        new ItemFrameUpdateRunnable(frame).runTask(InvisiFrames.INSTANCE);
     }
 
     /**
@@ -177,7 +177,7 @@ public class PluginListener implements Listener {
     @EventHandler
     public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
         final Entity entity = event.getEntity();
-        if (!InvisibleItemFrames.isInvisibleItemFrame(entity)) {
+        if (!InvisiFrames.isInvisibleItemFrame(entity)) {
             return;
         }
 
@@ -189,7 +189,7 @@ public class PluginListener implements Listener {
             return;
         }
 
-        new ItemFrameUpdateRunnable(frame).runTask(InvisibleItemFrames.INSTANCE);
+        new ItemFrameUpdateRunnable(frame).runTask(InvisiFrames.INSTANCE);
     }
 
     /**
@@ -201,7 +201,7 @@ public class PluginListener implements Listener {
         // event.getRecipe() is not the same object as the Recipe you pass to addRecipe.
         // So this ugly hack is required of checking the craft result for whether it's
         // the item to be crafted.
-        if (!InvisibleItemFrames.isInvisibleItemFrame(event.getInventory().getResult())) {
+        if (!InvisiFrames.isInvisibleItemFrame(event.getInventory().getResult())) {
             return;
         }
 
@@ -214,7 +214,7 @@ public class PluginListener implements Listener {
         }
 
         final Boolean limitedCrafting = entity.getWorld().getGameRuleValue(GameRule.DO_LIMITED_CRAFTING);
-        final boolean entityHasRecipe = entity.hasDiscoveredRecipe(InvisibleItemFrames.RECIPE_KEY);
+        final boolean entityHasRecipe = entity.hasDiscoveredRecipe(InvisiFrames.RECIPE_KEY);
         if (Boolean.TRUE.equals(limitedCrafting) && !entityHasRecipe) {
              event.getInventory().setResult(new ItemStack(Material.AIR));
         }
